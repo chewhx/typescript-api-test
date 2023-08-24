@@ -3,7 +3,7 @@ POST http://localhost:3000/api/register
 Content-Type: application/json
 
 {
-  "teacher": "teacherkengmail.com",
+  "teacher": "teacherken@gmail.com",
   "students": [
     "studentmac@gmail.com",
     "studentkendall@gmail.com"
