@@ -1,0 +1,59 @@
+### Register students for teacherken@gmail.com
+POST http://localhost:3000/api/register
+Content-Type: application/json
+
+{
+  "teacher": "teacherkengmail.com",
+  "students": [
+    "studentmac@gmail.com",
+    "studentkendall@gmail.com"
+  ]
+}
+
+### Register students teacherkaia@gmail.com
+POST http://localhost:3000/api/register
+Content-Type: application/json
+
+{
+  "teacher": "teacherkaia@gmail.com",
+  "students": [
+    "studentmac@gmail.com",
+    "studentkendall@gmail.com",
+    "studentvidal@gmail.com"
+  ]
+}
+
+### Get common students for teacherken@gmail.com
+GET http://localhost:3000/api/commonstudents?teacher=teacherken@gmail.com
+Content-Type: application/json
+
+### Get common students for teacherken@gmail.com and teacherkaia@gmail.com
+GET http://localhost:3000/api/commonstudents?teacher=teacherkaia@gmail.com&teacher=teacherken@gmail.com
+Content-Type: application/json
+
+
+### Suspend student studentmac@gmail.com
+POST http://localhost:3000/api/suspend
+Content-Type: application/json
+
+{
+  "student" : "studentmac@gmail.com"
+}
+
+### Retrieve students for notifications
+POST http://localhost:3000/api/retrievefornotifications
+Content-Type: application/json
+
+{
+  "teacher": "teacherken@gmail.com",
+  "notification":"Hello students!"
+}
+
+### Retrieve students for notifications
+POST http://localhost:3000/api/retrievefornotifications
+Content-Type: application/json
+
+{
+  "teacher": "teacherken@gmail.com",
+  "notification":"Hello students! @studentalexandro@gmail.com @studentjuana@gmail.com"
+}

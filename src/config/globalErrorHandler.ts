@@ -2,8 +2,10 @@ import { StatusCodes } from 'http-status-codes';
 import ErrorCodes from '../const/ErrorCodes';
 import ErrorBase from '../errors/ErrorBase';
 import { ErrorRequestHandler } from 'express';
+import { ZodError } from 'zod';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.error(err);
   if (res.headersSent) {
     return next(err);
   }
@@ -13,6 +15,13 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     return res.status(StatusCodes.BAD_REQUEST).send({
       errorCode: ErrorCodes.MALFORMED_JSON_ERROR_CODE,
       message: 'Malformed json',
+    });
+  }
+
+  if (err instanceof ZodError) {
+    return res.status(StatusCodes.BAD_REQUEST).send({
+      errorCode: StatusCodes.BAD_REQUEST,
+      message: err.errors.map((e) => `${e.path}: ${e.message}`).join(','),
     });
   }
 

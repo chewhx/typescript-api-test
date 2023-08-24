@@ -5,7 +5,7 @@ const HealthcheckController = Express.Router();
 
 const healthcheckHandler: RequestHandler = async (req, res) => {
   return res.sendStatus(StatusCodes.OK);
-}
+};
 
 HealthcheckController.get('/healthcheck', healthcheckHandler);
 
