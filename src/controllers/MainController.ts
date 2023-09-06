@@ -1,10 +1,6 @@
 import Express from 'express';
 import asyncHandler from 'express-async-handler';
 import { StatusCodes } from 'http-status-codes';
-import {
-  validateRequestBody,
-  validateRequestQuery,
-} from 'zod-express-middleware';
 import { Student, Teacher } from '../models';
 import {
   getCommonStudents,
@@ -16,12 +12,14 @@ import {
   suspendStudent,
   suspendStudentDto,
 } from '../services';
+import { validateRequestBody } from '../middlewares/validateRequestBody';
+import { validateRequestQuery } from '../middlewares/validateRequestQuery';
 
 const MainController = Express.Router();
 
 MainController.post(
   '/register',
-  asyncHandler(validateRequestBody(registerStudentsDto)),
+  validateRequestBody(registerStudentsDto),
   asyncHandler(async (req, res) => {
     const { teacher, students } = req.body;
 
@@ -54,7 +52,7 @@ MainController.get(
 
 MainController.post(
   '/suspend',
-  asyncHandler(validateRequestBody(suspendStudentDto)),
+  validateRequestBody(suspendStudentDto),
   asyncHandler(async (req, res) => {
     const { student } = req.body;
 
@@ -66,7 +64,7 @@ MainController.post(
 
 MainController.post(
   '/retrievefornotifications',
-  asyncHandler(validateRequestBody(getStudentsForNotificationsDto)),
+  validateRequestBody(getStudentsForNotificationsDto),
   asyncHandler(async (req, res) => {
     const { teacher, notification } = req.body;
 
