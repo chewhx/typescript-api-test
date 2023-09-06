@@ -15,18 +15,22 @@ const log = new Logger('getStudentsForNotifications');
 export async function getStudentsForNotifications({
   teacher,
   notification,
+  teacherModel,
+  studentModel,
 }: {
   teacher: string;
   notification: string;
+  teacherModel: typeof Teacher;
+  studentModel: typeof Student;
 }): Promise<string[]> {
   // ------------- Part 1. Registered students ----------------
   // Get students attached to teacher
-  const teacherRow = await Teacher.findOne({
+  const teacherRow = await teacherModel.findOne({
     where: {
       email: teacher,
     },
     include: {
-      model: Student,
+      model: studentModel,
       attributes: ['email'],
       where: {
         isSuspended: false,
@@ -59,7 +63,7 @@ export async function getStudentsForNotifications({
     log.info('No mentioned students');
   } else {
     // Else, check if student emails exists in db
-    const mentionedStudents = await Student.findAll({
+    const mentionedStudents = await studentModel.findAll({
       attributes: ['email'],
       where: {
         email: {

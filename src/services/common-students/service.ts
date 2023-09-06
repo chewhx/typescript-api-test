@@ -7,9 +7,11 @@ const log = new Logger('getCommonStudents');
 export async function getCommonStudents({
   teacher,
   studentModel,
+  teacherModel,
 }: {
   teacher: string | string[];
   studentModel: typeof Student;
+  teacherModel: typeof Teacher;
 }): Promise<string[]> {
   const teacherEmails = typeof teacher === 'string' ? [teacher] : teacher;
 
@@ -18,7 +20,7 @@ export async function getCommonStudents({
   const teacherStudentRows = await studentModel.findAll({
     include: [
       {
-        model: Teacher,
+        model: teacherModel,
         where: {
           email: {
             [Op.in]: teacherEmails,

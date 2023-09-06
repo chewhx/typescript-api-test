@@ -21,7 +21,7 @@ const MainController = Express.Router();
 
 MainController.post(
   '/register',
-  validateRequestBody(registerStudentsDto),
+  asyncHandler(validateRequestBody(registerStudentsDto)),
   asyncHandler(async (req, res) => {
     const { teacher, students } = req.body;
 
@@ -45,6 +45,7 @@ MainController.get(
     const students = await getCommonStudents({
       teacher,
       studentModel: Student,
+      teacherModel: Teacher,
     });
 
     res.status(StatusCodes.OK).json({ students });
@@ -53,11 +54,11 @@ MainController.get(
 
 MainController.post(
   '/suspend',
-  validateRequestBody(suspendStudentDto),
+  asyncHandler(validateRequestBody(suspendStudentDto)),
   asyncHandler(async (req, res) => {
     const { student } = req.body;
 
-    await suspendStudent(student);
+    await suspendStudent({ student, studentModel: Student });
 
     res.status(StatusCodes.NO_CONTENT).json({});
   })
@@ -65,13 +66,15 @@ MainController.post(
 
 MainController.post(
   '/retrievefornotifications',
-  validateRequestBody(getStudentsForNotificationsDto),
+  asyncHandler(validateRequestBody(getStudentsForNotificationsDto)),
   asyncHandler(async (req, res) => {
     const { teacher, notification } = req.body;
 
     const recipients = await getStudentsForNotifications({
       teacher,
       notification,
+      teacherModel: Teacher,
+      studentModel: Student,
     });
 
     res.status(StatusCodes.OK).json({ recipients });

@@ -3,8 +3,14 @@ import Logger from '../../config/logger';
 
 const log = new Logger('suspendStudent');
 
-export async function suspendStudent(student: string): Promise<void> {
-  await Student.update(
+export async function suspendStudent({
+  student,
+  studentModel,
+}: {
+  student: string;
+  studentModel: typeof Student;
+}): Promise<void> {
+  await studentModel.update(
     {
       isSuspended: true,
     },
