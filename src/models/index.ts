@@ -6,7 +6,7 @@ import { Student } from './Student.model';
 export { Teacher, Student };
 
 export const TeacherStudents = sequelize.define(
-  'teacher_student',
+  'TeacherStudents',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -14,7 +14,7 @@ export const TeacherStudents = sequelize.define(
       autoIncrement: true,
       allowNull: false,
     },
-    teacherId: {
+    TeacherId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -22,7 +22,7 @@ export const TeacherStudents = sequelize.define(
         key: 'id',
       },
     },
-    studentId: {
+    StudentId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -38,3 +38,7 @@ export const TeacherStudents = sequelize.define(
 
 Student.belongsToMany(Teacher, { through: TeacherStudents });
 Teacher.belongsToMany(Student, { through: TeacherStudents });
+TeacherStudents.belongsTo(Student);
+TeacherStudents.belongsTo(Teacher);
+Student.hasMany(TeacherStudents);
+Teacher.hasMany(TeacherStudents);

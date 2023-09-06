@@ -26,7 +26,8 @@
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.3",
     "winston": "^3.3.3",
-    "zod": "^3.22.2"
+    "zod": "^3.22.2",
+    "zod-express-middleware": "^1.4.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",

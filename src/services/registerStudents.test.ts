@@ -1,6 +1,6 @@
 import { QueryTypes } from 'sequelize';
 import sequelize from '../config/database';
-import { registerStudents } from './registerStudents';
+import { registerStudents } from './register-students/service';
 import { ZodError } from 'zod';
 
 describe('registerStudents', () => {

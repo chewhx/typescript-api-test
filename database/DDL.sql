@@ -1,4 +1,4 @@
-CREATE TABLE students (
+CREATE TABLE Students (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     isSuspended BOOLEAN DEFAULT FALSE NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE students (
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
 
-INSERT INTO students (id, email)
+INSERT INTO Students (id, email)
 VALUES
     (1, 'studentmac@gmail.com'),
     (2, 'studentkendall@gmail.com'),
@@ -19,14 +19,14 @@ VALUES
     (9, 'studentnickolas@gmail.com'),
     (10, 'studentcarissa@gmail.com');
 
-CREATE TABLE teachers (
+CREATE TABLE Teachers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
 
-INSERT INTO teachers (id, email)
+INSERT INTO Teachers (id, email)
 VALUES
     (1, 'teacherken@gmail.com'),
     (2, 'teacherkaia@gmail.com'),
@@ -39,13 +39,13 @@ VALUES
     (9, 'teacherfreeman@gmail.com'),
     (10, 'teacherfanny@gmail.com');
 
-CREATE TABLE teacher_students (
+CREATE TABLE TeacherStudents (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    teacherId INT NOT NULL,
-    studentId INT NOT NULL,
+    TeacherId INT NOT NULL,
+    StudentId INT NOT NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-    UNIQUE (teacherId, studentId),
-    FOREIGN KEY (teacherId) REFERENCES teachers (id),
-    FOREIGN KEY (studentId) REFERENCES students (id)
+    UNIQUE (TeacherId, StudentId),
+    FOREIGN KEY (TeacherId) REFERENCES Teachers (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (StudentId) REFERENCES Students (id) ON DELETE CASCADE ON UPDATE CASCADE
 );

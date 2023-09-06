@@ -1,6 +1,6 @@
 import { QueryTypes } from 'sequelize';
 import sequelize from '../config/database';
-import { getStudentsForNotifications } from './getStudentsForNotifications';
+import { getStudentsForNotifications } from './student-notifications/service';
 import { ZodError } from 'zod';
 
 describe('getStudentsForNotifications', () => {

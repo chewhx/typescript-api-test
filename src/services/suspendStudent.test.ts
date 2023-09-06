@@ -1,6 +1,6 @@
 import { QueryTypes } from 'sequelize';
 import sequelize from '../config/database';
-import { suspendStudent } from './suspendStudent';
+import { suspendStudent } from './suspend-student/service';
 import { ZodError } from 'zod';
 
 describe('suspendStudent', () => {

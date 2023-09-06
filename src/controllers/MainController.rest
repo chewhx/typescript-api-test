@@ -6,7 +6,8 @@ Content-Type: application/json
   "teacher": "teacherken@gmail.com",
   "students": [
     "studentmac@gmail.com",
-    "studentkendall@gmail.com"
+    "studentkendall@gmail.com",
+    "newstudent23@gmail.com"
   ]
 }
 
@@ -31,7 +32,6 @@ Content-Type: application/json
 GET http://localhost:3000/api/commonstudents?teacher=teacherkaia@gmail.com&teacher=teacherken@gmail.com
 Content-Type: application/json
 
-
 ### Suspend student studentmac@gmail.com
 POST http://localhost:3000/api/suspend
 Content-Type: application/json
@@ -46,6 +46,15 @@ Content-Type: application/json
 
 {
   "teacher": "teacherken@gmail.com",
+  "notification":"Hello students!"
+}
+
+### Retrieve students for notifications
+POST http://localhost:3000/api/retrievefornotifications
+Content-Type: application/json
+
+{
+  "teacher": "teacherkaia@gmail.com",
   "notification":"Hello students!"
 }
 

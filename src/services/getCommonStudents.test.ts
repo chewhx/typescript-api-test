@@ -1,12 +1,16 @@
-import { QueryTypes } from 'sequelize';
+import { QueryTypes, Sequelize } from 'sequelize';
 import sequelize from '../config/database';
-import { getCommonStudents } from './getCommonStudents';
+import { getCommonStudents } from './common-students/service';
 import { ZodError } from 'zod';
 
 describe('getCommonStudents', () => {
   it('Should be defined', () => {
     expect(getCommonStudents).toBeDefined();
   });
+
+  const StudentModel = {
+    findAll: async (params: any) => {},
+  };
 
   it('Should get students for one teacher', async () => {
     const teacher = 'teacherken@gmail.com';
