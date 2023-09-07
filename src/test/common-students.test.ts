@@ -5,6 +5,37 @@ describe('getCommonStudents', () => {
     expect(getCommonStudents).toBeDefined();
   });
 
+  it('Should handle empty teacher array', async () => {
+    const teacher: string[] = [];
+
+    const teacherModel: any = {};
+    const studentModel: any = {};
+
+    const res = await getCommonStudents({
+      teacher,
+      teacherModel,
+      studentModel,
+    });
+
+    expect(res).toMatchObject([]);
+  });
+
+  it('Should handle teacher undefined or null', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+    const teacher: null = null;
+
+    const teacherModel: any = {};
+    const studentModel: any = {};
+
+    const res = await getCommonStudents({
+      teacher,
+      teacherModel,
+      studentModel,
+    });
+
+    expect(res).toMatchObject([]);
+  });
+
   it('Should get students for one teacher', async () => {
     const teacher = ['teacherken@gmail.com'];
     const students = [

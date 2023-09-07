@@ -15,6 +15,10 @@ export async function getCommonStudents({
 }): Promise<string[]> {
   const teacherEmails = typeof teacher === 'string' ? [teacher] : teacher;
 
+  if (!teacherEmails || !teacherEmails?.length) {
+    return [];
+  }
+
   log.info(`Get common students for ${teacherEmails.join(',')}`);
 
   const teacherStudentRows = await studentModel.findAll({

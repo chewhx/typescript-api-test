@@ -55,4 +55,26 @@ describe('validateRequestBody', () => {
       ZodError
     );
   });
+
+  it('Should throw error if validation fails (no email)', () => {
+    const req: any = {
+      body: {
+        age: 45,
+      },
+    };
+    const res: any = {
+      status: jest.fn(() => res),
+      json: jest.fn(),
+    };
+    const next: any = jest.fn();
+
+    const zodSchema = z.object({
+      email: z.string().email(),
+      age: z.number(),
+    });
+
+    expect(() => validateRequestBody(zodSchema)(req, res, next)).toThrowError(
+      ZodError
+    );
+  });
 });

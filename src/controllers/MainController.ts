@@ -1,4 +1,4 @@
-import Express from 'express';
+import Express, { Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { StatusCodes } from 'http-status-codes';
 import { Student, Teacher } from '../models';
@@ -20,7 +20,7 @@ const MainController = Express.Router();
 MainController.post(
   '/register',
   validateRequestBody(registerStudentsDto),
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res: Response<unknown>) => {
     const { teacher, students } = req.body;
 
     await registerStudents({
@@ -37,7 +37,7 @@ MainController.post(
 MainController.get(
   '/commonstudents',
   validateRequestQuery(getCommonStudentsDto),
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res: Response<{ students: string[] }>) => {
     const { teacher } = req.query;
 
     const students = await getCommonStudents({
@@ -53,7 +53,7 @@ MainController.get(
 MainController.post(
   '/suspend',
   validateRequestBody(suspendStudentDto),
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res: Response<unknown>) => {
     const { student } = req.body;
 
     await suspendStudent({ student, studentModel: Student });
@@ -65,7 +65,7 @@ MainController.post(
 MainController.post(
   '/retrievefornotifications',
   validateRequestBody(getStudentsForNotificationsDto),
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res: Response<{ recipients: string[] }>) => {
     const { teacher, notification } = req.body;
 
     const recipients = await getStudentsForNotifications({

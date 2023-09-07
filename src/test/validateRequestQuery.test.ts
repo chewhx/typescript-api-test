@@ -50,4 +50,23 @@ describe('validateRequestQuery', () => {
       ZodError
     );
   });
+
+  it('Should throw error if validation fails (no teachers)', () => {
+    const req: any = {
+      body: {},
+    };
+    const res: any = {
+      status: jest.fn(() => res),
+      json: jest.fn(),
+    };
+    const next: any = jest.fn();
+
+    const zodSchema = z.object({
+      teachers: z.array(z.string().email()),
+    });
+
+    expect(() => validateRequestQuery(zodSchema)(req, res, next)).toThrowError(
+      ZodError
+    );
+  });
 });

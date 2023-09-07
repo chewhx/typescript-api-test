@@ -8,7 +8,14 @@ describe('extractMentionedEmails', () => {
     expect(extractMentionedEmails).toBeDefined();
   });
 
-  it('Should return emails withint the string without "@" symbol', () => {
+  it('Should handle null and undefined notification', () => {
+    const res = extractMentionedEmails(null);
+    const res1 = extractMentionedEmails(undefined);
+    expect(res).toMatchObject([]);
+    expect(res1).toMatchObject([]);
+  });
+
+  it('Should return emails within the notification without "@" symbol', () => {
     const message =
       'Hello students! @studentalexandro@gmail.com @studentjuana@gmail.com';
 
@@ -36,6 +43,33 @@ describe('extractMentionedEmails', () => {
 describe('getStudentsForNotifications', () => {
   it('Should be defined', () => {
     expect(getStudentsForNotifications).toBeDefined();
+  });
+
+  it('Should handle null or undefined teacher', async () => {
+    const notification = 'Hello students!';
+
+    const teacherModel: any = {};
+
+    const studentModel: any = {};
+
+    const expected: string[] = [];
+
+    const res = await getStudentsForNotifications({
+      teacher: null,
+      notification,
+      teacherModel,
+      studentModel,
+    });
+
+    const res1 = await getStudentsForNotifications({
+      teacher: undefined,
+      notification,
+      teacherModel,
+      studentModel,
+    });
+
+    expect(res).toMatchObject(expected);
+    expect(res1).toMatchObject(expected);
   });
 
   it('Should return students for a teacher without student mentions', async () => {

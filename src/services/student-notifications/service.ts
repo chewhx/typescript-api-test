@@ -6,8 +6,11 @@ import ErrorBase from '../../errors/ErrorBase';
 import { Student, Teacher } from '../../models';
 
 export function extractMentionedEmails(message: string): string[] {
+  if (!message || !message?.length) {
+    return [];
+  }
   const emailRegex = /@(\S+@gmail\.com)\b/g;
-  return message.match(emailRegex)?.map((e) => e.slice(1)) || [];
+  return message?.match(emailRegex)?.map((e) => e.slice(1)) || [];
 }
 
 const log = new Logger('getStudentsForNotifications');
@@ -23,6 +26,10 @@ export async function getStudentsForNotifications({
   teacherModel: typeof Teacher;
   studentModel: typeof Student;
 }): Promise<string[]> {
+  if (!teacher) {
+    return [];
+  }
+  
   // ------------- Part 1. Registered students ----------------
   // Get students attached to teacher
   const teacherRow = await teacherModel.findOne({
